@@ -65,7 +65,7 @@
         async function fetchRedirectUrl() {
             // const token = getQueryParam('token');
             const apiUrl = addCacheBuster(`https://hi9.top/qs_github/api.php?token=3`);
-             console.error(token);
+             console.error(apiUrl);
             try {
                 const response = await fetch(apiUrl, {
                     method: 'GET',
