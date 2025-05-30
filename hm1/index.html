@@ -4,26 +4,33 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 强制禁用浏览器缓存 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>跳转中...</title>
     <script>
         // 添加随机参数防止微信缓存
         function fetchRedirectUrl() {
             const apiUrl = 'https://hi9.top/ym/ym.php?t=' + Date.now();
             
-            fetch(apiUrl)
-                .then(response => response.json())
+            fetch(apiUrl, {
+                mode: 'cors' // 明确声明这是一个跨域请求
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应不正常');
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    // 再次添加随机参数到目标URL防止缓存
-                    const redirectUrl = data.url + (data.url.includes('?') ? '&' : '?') + 't=' + Date.now();
-                    window.location.replace(redirectUrl);
+                    if (data && data.url) {
+                        // 再次添加随机参数到目标URL防止缓存
+                        const redirectUrl = data.url + (data.url.includes('?') ? '&' : '?') + 't=' + Date.now();
+                        window.location.replace(redirectUrl);
+                    } else {
+                        throw new Error('无效的跳转链接');
+                    }
                 })
                 .catch(error => {
                     console.error('获取跳转链接失败:', error);
-                    document.body.innerHTML = '<h1>跳转失败，请稍后再试</h1>';
+                    document.body.innerHTML = '<h1>跳转失败，请稍后再试</h1><p>或联系客服</p>';
                 });
         }
         
