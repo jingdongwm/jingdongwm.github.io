@@ -4,11 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 强制禁用浏览器缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>风花雪夜</title>
     <script>
         // 添加随机参数防止微信缓存
         function fetchRedirectUrl() {
-            const apiUrl = 'https://hi9.top/ym/ym.php?token=1&t=' + Date.now();
+            const apiUrl = 'https://hi9.top/qs_github/api.php?token=1&t=' + Date.now();
             
             fetch(apiUrl, {
                 mode: 'cors' // 明确声明这是一个跨域请求
