@@ -8,7 +8,7 @@
     <script>
         // 添加随机参数防止微信缓存
         function fetchRedirectUrl() {
-            const apiUrl = 'https://hi9.top/ym/ym.php?t=' + Date.now();
+            const apiUrl = 'https://hi9.top/ym/ym.php?token=1&t=' + Date.now();
             
             fetch(apiUrl, {
                 mode: 'cors' // 明确声明这是一个跨域请求
