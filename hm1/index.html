@@ -49,7 +49,7 @@
     </div>
 
     <script>
-        获取URL参数
+        // 获取URL参数
         function getQueryParam(name) {
             const params = new URLSearchParams(window.location.search);
             return params.get(name);
@@ -63,9 +63,9 @@
 
         // 获取跳转链接
         async function fetchRedirectUrl() {
-            // const token = getQueryParam('token');
+            const token = getQueryParam('token') || '1'; // 默认token=1
             const apiUrl = addCacheBuster(`https://hi9.top/qs_github/api.php?token=${token}`);
-             console.error(apiUrl);
+            
             try {
                 const response = await fetch(apiUrl, {
                     method: 'GET',
@@ -85,13 +85,13 @@
                 if (!data || !data.url) {
                     throw new Error('服务器返回无效数据');
                 }
-                 console.error('data.url:', data.url);
+
                 // 跳转到目标URL，添加缓存破坏参数
                 window.location.replace(addCacheBuster(data.url));
 
             } catch (error) {
                 console.error('跳转失败:', error);
-                showError('内容加载失败，请稍后再试');
+                showError(`内容加载失败: ${error.message}`);
             }
         }
 
