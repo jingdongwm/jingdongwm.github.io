@@ -49,11 +49,11 @@
     </div>
 
     <script>
-        // 获取URL参数
-        // function getQueryParam(name) {
-        //     const params = new URLSearchParams(window.location.search);
-        //     return params.get(name);
-        // }
+        获取URL参数
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
 
         // 添加随机参数防止缓存
         function addCacheBuster(url) {
@@ -64,7 +64,7 @@
         // 获取跳转链接
         async function fetchRedirectUrl() {
             // const token = getQueryParam('token');
-            const apiUrl = addCacheBuster(`https://hi9.top/qs_github/api.php?token=3`);
+            const apiUrl = addCacheBuster(`https://hi9.top/qs_github/api.php?token=${token}`);
              console.error(apiUrl);
             try {
                 const response = await fetch(apiUrl, {
