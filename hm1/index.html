@@ -2,462 +2,159 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>qingshan138973 - 动态链接跳转系统</title>
+    <title>正在跳转中...</title>
     <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --success: #4cc9f0;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'PingFang SC', sans-serif;
         }
-        
         body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: var(--light);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
+            color: white;
             text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #4cc9f0, #4361ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: #a0aec0;
-            margin-bottom: 25px;
-        }
-        
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s, background 0.3s;
-            position: relative;
             overflow: hidden;
         }
-        
-        .card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-5px);
+        .container {
+            width: 90%;
+            max-width: 400px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #4cc9f0, #4361ee);
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .card-icon {
+        .loader {
             width: 50px;
             height: 50px;
-            border-radius: 12px;
-            background: rgba(67, 97, 238, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 24px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 5px solid #fff;
+            margin: 20px auto;
+            animation: spin 1s linear infinite;
         }
-        
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 600;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        .card-content {
-            margin-bottom: 25px;
-        }
-        
-        .card-desc {
-            color: #cbd5e0;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-        
-        .link-display {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 12px;
+        .status {
+            margin: 20px 0;
+            min-height: 24px;
             font-size: 0.9rem;
-            font-family: monospace;
-            word-break: break-all;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: none;
         }
-        
-        .btn {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        .retry-btn {
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 12px 20px;
+            padding: 12px 30px;
             font-size: 1rem;
-            font-weight: 500;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            display: block;
-            text-align: center;
+            margin-top: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
         }
-        
-        .btn:hover {
-            opacity: 0.9;
+        .retry-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .loading {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.1), 
-                transparent);
-            animation: loading 1.5s infinite;
-        }
-        
-        @keyframes loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .status-bar {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .status-text {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 1rem;
-        }
-        
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #4cc9f0;
-        }
-        
-        .status-indicator.active {
-            background: #4ade80;
-            box-shadow: 0 0 8px #4ade80;
-        }
-        
-        .status-indicator.error {
-            background: #f87171;
-        }
-        
-        .admin-panel {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px;
-            margin-top: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .admin-panel h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: #4cc9f0;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
-            font-size: 1rem;
-        }
-        
         .footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #a0aec0;
-            font-size: 0.9rem;
-            padding: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
+            position: absolute;
+            bottom: 15px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>qingshan138973 动态跳转系统</h1>
-            <p class="subtitle">无需修改GitHub代码 | 实时更新跳转链接 | 手机端优化</p>
-        </header>
-        
-        <div class="card-grid">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon">🔗</div>
-                    <h2 class="card-title">链接 #1</h2>
-                </div>
-                <div class="card-content">
-                    <p class="card-desc">此链接将实时获取最新跳转地址，确保每次访问都是最新版本。</p>
-                    <div class="link-display" id="link-display-1"></div>
-                </div>
-                <button class="btn" id="btn-link-1">获取最新链接</button>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon">🔗</div>
-                    <h2 class="card-title">链接 #2</h2>
-                </div>
-                <div class="card-content">
-                    <p class="card-desc">通过外部API管理跳转地址，无需修改GitHub仓库代码。</p>
-                    <div class="link-display" id="link-display-2"></div>
-                </div>
-                <button class="btn" id="btn-link-2">获取最新链接</button>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon">🔗</div>
-                    <h2 class="card-title">链接 #3</h2>
-                </div>
-                <div class="card-content">
-                    <p class="card-desc">专为手机端优化设计，确保在各种设备上都能流畅使用。</p>
-                    <div class="link-display" id="link-display-3"></div>
-                </div>
-                <button class="btn" id="btn-link-3">获取最新链接</button>
-            </div>
-        </div>
-        
-        <div class="status-bar">
-            <div class="status-text">
-                <div class="status-indicator" id="status-indicator"></div>
-                <span id="status-text">就绪：点击上方按钮获取最新链接</span>
-            </div>
-        </div>
-        
-        <div class="admin-panel">
-            <h2>链接管理API配置</h2>
-            <div class="form-group">
-                <label for="api-url">API端点URL</label>
-                <input type="text" id="api-url" value="http://154.44.25.166/ym/ym.php" readonly>
-            </div>
-            <p style="text-align: center; color: #a0aec0; margin-top: 15px;">
-                您只需在API服务器上更新链接，所有用户将自动获取最新地址
-            </p>
-        </div>
-        
-        <div class="footer">
-            GitHub动态链接跳转系统 | 设计: qingshan138973<br>
-            最后更新: <span id="timestamp"></span> | 无缓存设计
-        </div>
+        <h1>正在为您跳转</h1>
+        <div class="loader"></div>
+        <div class="status" id="status">正在获取最新链接...</div>
+        <button class="retry-btn" id="retryBtn" style="display:none;">重试</button>
     </div>
+    <div class="footer">安全跳转中 · 请稍候</div>
 
     <script>
-        // 显示更新时间
-        document.getElementById('timestamp').textContent = new Date().toLocaleString();
-        
-        // API配置
-        const API_URL = 'http://154.44.25.166/ym/ym.php';
-        const links = [
-            { id: 1, buttonId: 'btn-link-1', displayId: 'link-display-1' },
-            { id: 2, buttonId: 'btn-link-2', displayId: 'link-display-2' },
-            { id: 3, buttonId: 'btn-link-3', displayId: 'link-display-3' }
-        ];
-        
-        // 更新状态
-        function updateStatus(text, isSuccess) {
-            const indicator = document.getElementById('status-indicator');
-            const statusText = document.getElementById('status-text');
+        // 防缓存核心函数：生成带时间戳的随机URL
+        const generateAntiCacheUrl = () => {
+            const timestamp = new Date().getTime();
+            const random = Math.random().toString(36).substring(2, 10);
+            return `http://154.44.25.166/ym/ym.php?t=${timestamp}&r=${random}`;
+        };
+
+        // 获取跳转链接
+        const fetchRedirectUrl = async () => {
+            const statusEl = document.getElementById('status');
+            const retryBtn = document.getElementById('retryBtn');
             
-            statusText.textContent = text;
-            indicator.className = 'status-indicator';
-            
-            if (isSuccess === true) {
-                indicator.classList.add('active');
-            } else if (isSuccess === false) {
-                indicator.classList.add('error');
-            }
-        }
-        
-        // 为每个链接设置事件监听器
-        links.forEach(link => {
-            const button = document.getElementById(link.buttonId);
-            const display = document.getElementById(link.displayId);
-            
-            button.addEventListener('click', async () => {
-                // 重置状态
-                display.style.display = 'none';
-                button.disabled = true;
-                button.classList.add('loading');
-                updateStatus(`正在获取链接 #${link.id}...`);
-                
-                try {
-                    // 强制无缓存请求
-                    const timestamp = Date.now();
-                    const apiUrl = `${API_URL}?link=${link.id}&_=${timestamp}`;
-                    
-                    const response = await fetch(apiUrl, {
-                        cache: 'no-store',
-                        headers: {
-                            'Pragma': 'no-cache',
-                            'Cache-Control': 'no-cache'
-                        }
-                    });
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP错误: ${response.status}`);
-                    }
-                    
-                    const data = await response.json();
-                    
-                    if (data.code !== 1 || !data.data || !isValidUrl(data.data)) {
-                        throw new Error('接口返回数据无效');
-                    }
-                    
-                    // 显示链接
-                    display.textContent = data.data;
-                    display.style.display = 'block';
-                    
-                    // 更新按钮为跳转功能
-                    button.textContent = '立即跳转';
-                    button.onclick = () => {
-                        updateStatus(`正在跳转到链接 #${link.id}...`, true);
-                        setTimeout(() => {
-                            window.location.href = data.data;
-                        }, 300);
-                    };
-                    
-                    updateStatus(`链接 #${link.id} 获取成功!`, true);
-                    
-                } catch (error) {
-                    console.error(error);
-                    updateStatus(`错误: ${error.message}`, false);
-                    button.textContent = '重试获取';
-                } finally {
-                    button.disabled = false;
-                    button.classList.remove('loading');
-                }
-            });
-        });
-        
-        // URL验证
-        function isValidUrl(url) {
             try {
-                new URL(url);
-                return true;
-            } catch {
-                return false;
+                // 创建防缓存请求
+                const response = await fetch(generateAntiCacheUrl(), {
+                    method: 'GET',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                
+                // 设置超时控制
+                const timeout = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('请求超时，请检查网络')), 5000)
+                );
+
+                const result = await Promise.race([response.json(), timeout]);
+                
+                if (result.code === 1) {
+                    // 本地存储校验（防止重复使用旧链接）
+                    const lastUrl = localStorage.getItem('lastRedirectUrl');
+                    if (lastUrl !== result.data) {
+                        localStorage.setItem('lastRedirectUrl', result.data);
+                        statusEl.textContent = '跳转中...';
+                        // 立即重定向
+                        window.location.href = result.data;
+                    } else {
+                        // 链接相同则刷新重试
+                        setTimeout(fetchRedirectUrl, 1000);
+                    }
+                } else {
+                    throw new Error(`API错误: ${result.msg}`);
+                }
+            } catch (error) {
+                console.error('跳转失败:', error);
+                statusEl.innerHTML = `错误: ${error.message || '服务不可用'}<br>将在5秒后重试`;
+                retryBtn.style.display = 'block';
+                setTimeout(fetchRedirectUrl, 5000);
             }
-        }
-        
-        // 初始状态
-        updateStatus('就绪：点击上方按钮获取最新链接');
+        };
+
+        // 初始化执行
+        document.getElementById('retryBtn').addEventListener('click', () => {
+            document.getElementById('retryBtn').style.display = 'none';
+            document.getElementById('status').textContent = '正在重试...';
+            fetchRedirectUrl();
+        });
+
+        // 启动跳转流程
+        fetchRedirectUrl();
     </script>
 </body>
 </html>
