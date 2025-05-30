@@ -63,7 +63,7 @@
 
         // 获取跳转链接
         async function fetchRedirectUrl() {
-            const token = getQueryParam('token') || '2'; // 默认为token=1
+            const token = getQueryParam('token'); // 默认为token=1   || '2'
             const apiUrl = addCacheBuster(`https://hi9.top/qs_github/api.php?token=${token}`);
              console.error(token);
             try {
